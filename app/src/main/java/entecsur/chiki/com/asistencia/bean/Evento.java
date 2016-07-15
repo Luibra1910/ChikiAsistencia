@@ -9,6 +9,15 @@ public class Evento {
     private String ambiente;
     private String tipoEvento;
 
+    public Evento(String idEvento, String nombreEvento, String precioEvento, String inicioEvento, String ambiente, String tipoEvento){
+        this.idEvento       = idEvento;
+        this.nombreEvento   = nombreEvento;
+        this.precioEvento   = precioEvento;
+        this.inicioEvento   = inicioEvento;
+        this.idEvento       = ambiente;
+        this.idEvento       = tipoEvento;
+    }
+
     public String getIdEvento() {
         return idEvento;
     }

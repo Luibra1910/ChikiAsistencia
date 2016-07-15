@@ -35,10 +35,14 @@ public class activityPrincipal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
-        tabLayout = (TabLayout)findViewById(R.id.tabLayout);
-        viewPager = (ViewPager)findViewById(R.id.viewPager);
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        try {
+            fragEvento = new FragmentEvento(this);
+        } catch (Exception e) {
 
-        fragEvento = new FragmentEvento(this);
+        }
+
         fragConsulta = new FragmentConsulta();
 
         //fragEvento.setActivity(this);
@@ -69,13 +73,13 @@ public class activityPrincipal extends AppCompatActivity {
         }
     }
 
-    public void iniciarScan(int tipo){
+    public void iniciarScan(int tipo) {
         this.tipoConsulta = tipo;
         new IntentIntegrator(activityPrincipal.this).initiateScan();
     }
 
-    public void setResultados(String results){
-        switch (tipoConsulta){
+    public void setResultados(String results) {
+        switch (tipoConsulta) {
             case 1:
                 //fragEvento.seterTexto(results);
                 //fragEvento.llenarEvento();

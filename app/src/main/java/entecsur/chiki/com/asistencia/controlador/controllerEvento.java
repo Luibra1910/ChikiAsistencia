@@ -10,6 +10,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -22,10 +23,52 @@ public class controllerEvento {
     static RequestQueue req;
     activityPrincipal principal;
 
-    public void setRequest(activityPrincipal activity) {
+    ArrayList<Evento> allEvents = new ArrayList<>();
+
+    public void setRequest(activityPrincipal activity) throws JSONException{
         this.principal = activity;
         req = Volley.newRequestQueue(principal.getApplicationContext());
+
+        JsonObjectRequest jsonOb = new JsonObjectRequest(Request.Method.GET,
+                "http://www.json-generator.com/api/json/get/cgcfNqBXdu?indent=2",
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        ArrayList<Evento> setEventos = new ArrayList<>();
+
+                        try {
+                            JSONArray jsonArray = response.getJSONArray("evento");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject objetoEvento = jsonArray.getJSONObject(i);
+
+                                String nombre = objetoEvento.getString("nombre");
+                                String apellido = objetoEvento.getString("apellido");
+                                setEventos.add(new Evento("",nombre,apellido,"","",""));
+                            }
+
+                        } catch (Exception e) {
+                            Log.e("VOLLEY", "ERROR: " + e);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }
+        );
+        req.add(jsonOb);
     }
+
+    public void allEvents(ArrayList<Evento> events){
+        this.allEvents = events;
+    }
+
+    public ArrayList<Evento> getAllEvents(){
+        return allEvents;
+    }
+
 
     /*
     public static ArrayList<Evento> getAllEvent() {
@@ -62,6 +105,7 @@ public class controllerEvento {
         return listEvento;
     }*/
 
+    /*
     public static ArrayList<String> getAllString() {
         final ArrayList<String> listEvento = new ArrayList<>();
 
@@ -93,5 +137,5 @@ public class controllerEvento {
         );
         req.add(jsonOb);
         return listEvento;
-    }
+    }*/
 }

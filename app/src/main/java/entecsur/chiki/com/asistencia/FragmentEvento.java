@@ -10,10 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import entecsur.chiki.com.asistencia.bean.Evento;
 import entecsur.chiki.com.asistencia.controlador.controllerEvento;
 
 public class FragmentEvento extends Fragment {
@@ -24,19 +24,19 @@ public class FragmentEvento extends Fragment {
     Spinner spinEvento;
     controllerEvento ctrlEvento;
 
-    public FragmentEvento(activityPrincipal activity){
-        this.principal = activity;
-        ctrlEvento = new controllerEvento();
+    public FragmentEvento(activityPrincipal activity)throws Exception{
+        this.principal  = activity;
+        ctrlEvento      = new controllerEvento();
         ctrlEvento.setRequest(principal);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_evento, container, false);
-        btnScanEvento = (ImageButton) v.findViewById(R.id.btnScanEvento);
-        tvEvento = (TextView) v.findViewById(R.id.tvEvento);
-        spinEvento = (Spinner) v.findViewById(R.id.spinEvento);
+        View v          = inflater.inflate(R.layout.fragment_evento, container, false);
+        btnScanEvento   = (ImageButton) v.findViewById(R.id.btnScanEvento);
+        tvEvento        = (TextView) v.findViewById(R.id.tvEvento);
+        spinEvento      = (Spinner) v.findViewById(R.id.spinEvento);
 
         llenarEvento();
 
@@ -65,14 +65,14 @@ public class FragmentEvento extends Fragment {
 
     public void llenarEvento() {
         //Se pobla el Spinner del Fragmento Evento
-        ArrayList<String> list = ctrlEvento.getAllString();
-        /*ArrayList<String> list = new ArrayList<>();
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        list.add("4");*/
+        ArrayList<Evento> list = ctrlEvento.getAllEvents();
+        ArrayList<String> nombres = new ArrayList<>();
+        for (Evento x :
+                list) {
+            nombres.add(x.getNombreEvento());
+        }
         ArrayAdapter<String> spinner_adapter = new ArrayAdapter<>(principal.getApplicationContext()
-                , R.layout.spin_item, list);
+                , R.layout.spin_item, nombres);
         spinEvento.setAdapter(spinner_adapter);
 
     }
