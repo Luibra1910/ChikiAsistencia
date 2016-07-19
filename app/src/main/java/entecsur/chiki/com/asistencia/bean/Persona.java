@@ -14,6 +14,23 @@ public class Persona {
     private String procedencia;
     private String sexo;
 
+    public Persona(String idPersona, String nombre, String apePater, String apeMater,
+                   String dni, String fec_nac, String telefono, String correo, String distrito,
+                   String procedencia, String sexo){
+        this.idPersona      = idPersona;
+        this.nombre         = nombre;
+        this.apePater       = apePater;
+        this.apeMater       = apeMater;
+        this.dni            = dni;
+        this.fec_nac        = fec_nac;
+        this.telefono       = telefono;
+        this.correo         = correo;
+        this.distrito       = distrito;
+        this.procedencia    = procedencia;
+        this.sexo           = sexo;
+
+    }
+
     public String getIdPersona() {
         return idPersona;
     }

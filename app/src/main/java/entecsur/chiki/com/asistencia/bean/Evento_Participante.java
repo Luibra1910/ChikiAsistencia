@@ -8,6 +8,12 @@ public class Evento_Participante {
 	//private String horaInicio;
 	//private String horaSalida;
 
+	public Evento_Participante(String idEvento, String idParticipante, String asistencia){
+		this.idEvento		= idEvento;
+		this.idParticipante	= idParticipante;
+		this.asistencia		= asistencia;
+	}
+
 	public String getIdEvento() {
 		return idEvento;
 	}
