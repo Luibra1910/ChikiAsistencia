@@ -6,6 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -25,12 +26,13 @@ public class controllerEvento {
 
     ArrayList<Evento> allEvents = new ArrayList<>();
 
-    public void setRequest(activityPrincipal activity) throws JSONException{
+    public void setRequest(activityPrincipal activity) {
         this.principal = activity;
         req = Volley.newRequestQueue(principal.getApplicationContext());
 
+        /*
         JsonObjectRequest jsonOb = new JsonObjectRequest(Request.Method.GET,
-                "http://www.json-generator.com/api/json/get/cgcfNqBXdu?indent=2",
+                "http://www.json-generator.com/api/json/get/cqSDBodYEi?indent=2",
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -59,13 +61,46 @@ public class controllerEvento {
                 }
         );
         req.add(jsonOb);
+        */
+        JsonArrayRequest array = new JsonArrayRequest(Request.Method.GET,
+                "http://www.json-generator.com/api/json/get/cqSDBodYEi?indent=2",
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            if(response.length()>0){
+                                for (int i=0;i<response.length();i++){
+                                    JSONObject object = response.getJSONObject(i);
+                                    System.out.print(object.getString("idEvento")+" ");
+                                    System.out.print(object.getString("hora")+" ");
+                                    System.out.print(object.getString("fecha")+" ");
+                                    System.out.print(object.getString("precio")+" ");
+                                    System.out.print(object.getString("categoria")+" ");
+                                    System.out.print(object.getString("nombre")+" ");
+                                    System.out.println(object.getString("ambiente")+" ");
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.d("Excepetion", e.getMessage());
+                        }
+                    }
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+
+        req.add(array);
     }
 
-    public void allEvents(ArrayList<Evento> events){
+    public void allEvents(ArrayList<Evento> events) {
         this.allEvents = events;
     }
 
-    public ArrayList<Evento> getAllEvents(){
+    public ArrayList<Evento> getAllEvents() {
         return allEvents;
     }
 

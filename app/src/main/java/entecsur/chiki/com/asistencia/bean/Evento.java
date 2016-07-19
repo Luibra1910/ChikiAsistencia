@@ -3,19 +3,23 @@ package entecsur.chiki.com.asistencia.bean;
 public class Evento {
 
     private String idEvento;
-    private String nombreEvento;
+    private String horaEvento;
+    private String fechaEvento;
     private String precioEvento;
-    private String inicioEvento;
-    private String ambiente;
-    private String tipoEvento;
+    private String categoriaEvento;
+    private String nombreEvento;
+    private String ambienteEvento;
 
-    public Evento(String idEvento, String nombreEvento, String precioEvento, String inicioEvento, String ambiente, String tipoEvento){
-        this.idEvento       = idEvento;
-        this.nombreEvento   = nombreEvento;
-        this.precioEvento   = precioEvento;
-        this.inicioEvento   = inicioEvento;
-        this.idEvento       = ambiente;
-        this.idEvento       = tipoEvento;
+    public Evento(String idEvento, String horaEvento, String fechaEvento, String precioEvento,
+                  String categoriaEvento, String nombreEvento, String ambienteEvento){
+        this.idEvento           = idEvento;
+        this.horaEvento         = horaEvento;
+        this.fechaEvento        = fechaEvento;
+        this.precioEvento       = precioEvento;
+        this.categoriaEvento    = categoriaEvento;
+        this.nombreEvento       = nombreEvento;
+        this.ambienteEvento     = ambienteEvento;
+
     }
 
     public String getIdEvento() {
@@ -26,12 +30,20 @@ public class Evento {
         this.idEvento = idEvento;
     }
 
-    public String getNombreEvento() {
-        return nombreEvento;
+    public String getHoraEvento() {
+        return horaEvento;
     }
 
-    public void setNombreEvento(String nombreEvento) {
-        this.nombreEvento = nombreEvento;
+    public void setHoraEvento(String horaEvento) {
+        this.horaEvento = horaEvento;
+    }
+
+    public String getFechaEvento() {
+        return fechaEvento;
+    }
+
+    public void setFechaEvento(String fechaEvento) {
+        this.fechaEvento = fechaEvento;
     }
 
     public String getPrecioEvento() {
@@ -42,27 +54,27 @@ public class Evento {
         this.precioEvento = precioEvento;
     }
 
-    public String getInicioEvento() {
-        return inicioEvento;
+    public String getCategoriaEvento() {
+        return categoriaEvento;
     }
 
-    public void setInicioEvento(String inicioEvento) {
-        this.inicioEvento = inicioEvento;
+    public void setCategoriaEvento(String categoriaEvento) {
+        this.categoriaEvento = categoriaEvento;
     }
 
-    public String getAmbiente() {
-        return ambiente;
+    public String getNombreEvento() {
+        return nombreEvento;
     }
 
-    public void setAmbiente(String ambiente) {
-        this.ambiente = ambiente;
+    public void setNombreEvento(String nombreEvento) {
+        this.nombreEvento = nombreEvento;
     }
 
-    public String getTipoEvento() {
-        return tipoEvento;
+    public String getAmbienteEvento() {
+        return ambienteEvento;
     }
 
-    public void setTipoEvento(String tipoEvento) {
-        this.tipoEvento = tipoEvento;
+    public void setAmbienteEvento(String ambienteEvento) {
+        this.ambienteEvento = ambienteEvento;
     }
 }
