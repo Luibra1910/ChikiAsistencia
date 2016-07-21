@@ -6,10 +6,7 @@ public class controllerParticipante {
 
 	public Participante getParticipante(int dniParticipante){
 		Participante part = new Participante();
-		/*
 
-
-		*/
 		return part;
 
 	}

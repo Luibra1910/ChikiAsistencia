@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -14,7 +13,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import entecsur.chiki.com.asistencia.bean.Evento;
+import entecsur.chiki.com.asistencia.bean.Persona;
 import entecsur.chiki.com.asistencia.controlador.controllerEvento;
+import entecsur.chiki.com.asistencia.controlador.controllerEvento_Participante;
 
 public class FragmentEvento extends Fragment {
 
@@ -23,11 +24,13 @@ public class FragmentEvento extends Fragment {
     activityPrincipal principal;
     Spinner spinEvento;
     controllerEvento ctrlEvento;
+    controllerEvento_Participante ctrlEventoParticipante;
 
-    public FragmentEvento(activityPrincipal activity)throws Exception{
+    public FragmentEvento(activityPrincipal activity){
         this.principal  = activity;
-        ctrlEvento      = new controllerEvento();
-        ctrlEvento.setRequest(principal);
+        ctrlEvento      = new controllerEvento(principal, this);
+        ctrlEventoParticipante      = new controllerEvento_Participante(principal, this);
+        ctrlEvento.getEvents();
     }
 
     @Override
@@ -37,21 +40,6 @@ public class FragmentEvento extends Fragment {
         btnScanEvento   = (ImageButton) v.findViewById(R.id.btnScanEvento);
         tvEvento        = (TextView) v.findViewById(R.id.tvEvento);
         spinEvento      = (Spinner) v.findViewById(R.id.spinEvento);
-
-        llenarEvento();
-
-        spinEvento.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //Toast.makeText(principal.getApplicationContext(),"Nombre: " + id,Toast.LENGTH_SHORT).show();
-                System.out.println(spinEvento.getSelectedItem().toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                System.out.println("No seleccionado :(");
-            }
-        });
 
         btnScanEvento.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,17 +51,28 @@ public class FragmentEvento extends Fragment {
         return v;
     }
 
-    public void llenarEvento() {
+    public void llenarEvento(ArrayList<Evento> lista) {
         //Se pobla el Spinner del Fragmento Evento
-        ArrayList<Evento> list = ctrlEvento.getAllEvents();
+        ArrayList<Evento> list = lista;
         ArrayList<String> nombres = new ArrayList<>();
-        for (Evento x :
-                list) {
-            nombres.add(x.getNombreEvento());
-        }
-        ArrayAdapter<String> spinner_adapter = new ArrayAdapter<>(principal.getApplicationContext()
-                , R.layout.spin_item, nombres);
+
+        for (Evento x : list) { nombres.add(x.getNombreEvento()); }
+
+        ArrayAdapter<String> spinner_adapter = new ArrayAdapter<>(
+                principal.getApplicationContext(), R.layout.spin_item, nombres);
         spinEvento.setAdapter(spinner_adapter);
+    }
+
+    public void consultarParticipante(String dni) {
+        //Consulta si el participante tiene acceso o no a la conferencia o taller
+        Persona per = ctrlEventoParticipante.verificarParticipante(dni, spinEvento.getSelectedItem().toString());
+        if(per!=null){
+            tvEvento.setText("Pase usted, Humano:  " + per.getNombre() + " "+per.getApeMater()
+                    + " " + per.getApePater());
+        }else{
+            tvEvento.setText("Usted no puede entrar a estos aposentos");
+        }
 
     }
+
 }

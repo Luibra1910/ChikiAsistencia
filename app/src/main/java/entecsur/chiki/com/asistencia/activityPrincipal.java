@@ -35,17 +35,12 @@ public class activityPrincipal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        try {
-            fragEvento = new FragmentEvento(this);
-        } catch (Exception e) {
+        tabLayout       = (TabLayout) findViewById(R.id.tabLayout);
+        viewPager       = (ViewPager) findViewById(R.id.viewPager);
 
-        }
+        fragEvento      = new FragmentEvento(this);
+        fragConsulta    = new FragmentConsulta();
 
-        fragConsulta = new FragmentConsulta();
-
-        //fragEvento.setActivity(this);
         fragConsulta.setActivity(this);
 
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -53,9 +48,6 @@ public class activityPrincipal extends AppCompatActivity {
         viewPagerAdapter.addFragments(fragConsulta, "Consulta");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-
-        //fragEvento.llenarEvento();
-
     }
 
     @Override
@@ -81,8 +73,7 @@ public class activityPrincipal extends AppCompatActivity {
     public void setResultados(String results) {
         switch (tipoConsulta) {
             case 1:
-                //fragEvento.seterTexto(results);
-                //fragEvento.llenarEvento();
+                fragEvento.consultarParticipante(results);
                 break;
             case 2:
                 break;
