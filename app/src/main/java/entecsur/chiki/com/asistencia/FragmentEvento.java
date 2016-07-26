@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -54,13 +55,19 @@ public class FragmentEvento extends Fragment {
     public void llenarEvento(ArrayList<Evento> lista) {
         //Se pobla el Spinner del Fragmento Evento
         ArrayList<Evento> list = lista;
-        ArrayList<String> nombres = new ArrayList<>();
+        if(list!=null){
+            ArrayList<String> nombres = new ArrayList<>();
 
-        for (Evento x : list) { nombres.add(x.getNombreEvento()); }
+            for (Evento x : list) { nombres.add(x.getNombreEvento());
+                System.out.println("Entre: "+x.getNombreEvento());}
 
-        ArrayAdapter<String> spinner_adapter = new ArrayAdapter<>(
-                principal.getApplicationContext(), R.layout.spin_item, nombres);
-        spinEvento.setAdapter(spinner_adapter);
+
+            ArrayAdapter<String> spinner_adapter = new ArrayAdapter<>(
+                    principal.getApplicationContext(), R.layout.spin_item, nombres);
+            spinEvento.setAdapter(spinner_adapter);
+        }else{
+            Toast.makeText(principal.getApplicationContext(), "No hay datos cargados",Toast.LENGTH_SHORT);
+        }
     }
 
     public void consultarParticipante(String dni) {

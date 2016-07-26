@@ -34,7 +34,8 @@ public class controllerEvento {
 
     public void getEvents(){
         JsonArrayRequest array = new JsonArrayRequest(Request.Method.GET,
-                "http://www.json-generator.com/api/json/get/cqSDBodYEi?indent=2",
+                //"http://www.json-generator.com/api/json/get/cqSDBodYEi?indent=2"
+                "http://192.168.1.38/Asistencia/Evento/getEventos.php",
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -45,7 +46,7 @@ public class controllerEvento {
                                 for (int i = 0; i < response.length(); i++) {
                                     JSONObject object   = response.getJSONObject(i);
 
-                                    String idEvento     = object.getString("idEvento");
+                                    String idEvento     = object.getString("id");
                                     String hora         = object.getString("hora");
                                     String fecha        = object.getString("fecha");
                                     String precio       = object.getString("precio");

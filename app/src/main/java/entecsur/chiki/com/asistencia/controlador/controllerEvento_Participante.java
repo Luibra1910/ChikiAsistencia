@@ -6,19 +6,14 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 import entecsur.chiki.com.asistencia.FragmentEvento;
 import entecsur.chiki.com.asistencia.activityPrincipal;
-import entecsur.chiki.com.asistencia.bean.Evento;
 import entecsur.chiki.com.asistencia.bean.Persona;
 
 public class controllerEvento_Participante {
