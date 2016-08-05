@@ -39,6 +39,7 @@ public class activityPrincipal extends AppCompatActivity {
         viewPager       = (ViewPager) findViewById(R.id.viewPager);
 
         fragEvento      = new FragmentEvento(this);
+
         fragConsulta    = new FragmentConsulta();
 
         fragConsulta.setActivity(this);

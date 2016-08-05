@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 import entecsur.chiki.com.asistencia.bean.Evento;
 import entecsur.chiki.com.asistencia.bean.Persona;
-import entecsur.chiki.com.asistencia.controlador.controllerEvento;
 import entecsur.chiki.com.asistencia.controlador.controllerEvento_Participante;
 
 public class FragmentEvento extends Fragment {
@@ -24,14 +23,14 @@ public class FragmentEvento extends Fragment {
     TextView tvEvento;
     activityPrincipal principal;
     Spinner spinEvento;
-    controllerEvento ctrlEvento;
+    //controllerEvento ctrlEvento;
     controllerEvento_Participante ctrlEventoParticipante;
 
     public FragmentEvento(activityPrincipal activity){
-        this.principal  = activity;
-        ctrlEvento      = new controllerEvento(principal, this);
+        this.principal              = activity;
+        //ctrlEvento                  = new controllerEvento(principal, this);
         ctrlEventoParticipante      = new controllerEvento_Participante(principal, this);
-        ctrlEvento.getEvents();
+        //ctrlEvento.getEvents();
     }
 
     @Override
@@ -73,12 +72,16 @@ public class FragmentEvento extends Fragment {
     public void consultarParticipante(String dni) {
         //Consulta si el participante tiene acceso o no a la conferencia o taller
         Persona per = ctrlEventoParticipante.verificarParticipante(dni, spinEvento.getSelectedItem().toString());
-        if(per!=null){
+        String txt = "";
+        txt = (per!=null)?"Pase usted, Humano:  " + per.getNombre() + " "+per.getApeMater()
+                + " " + per.getApePater():"Usted no puede entrar a estos aposentos";
+        tvEvento.setText(txt);
+        /*if(per!=null){
             tvEvento.setText("Pase usted, Humano:  " + per.getNombre() + " "+per.getApeMater()
                     + " " + per.getApePater());
         }else{
             tvEvento.setText("Usted no puede entrar a estos aposentos");
-        }
+        }*/
 
     }
 

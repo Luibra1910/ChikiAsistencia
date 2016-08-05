@@ -14,9 +14,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import entecsur.chiki.com.asistencia.FragmentEvento;
 import entecsur.chiki.com.asistencia.activityPrincipal;
 import entecsur.chiki.com.asistencia.bean.Evento;
+import entecsur.chiki.com.asistencia.splash;
 
 public class controllerEvento {
 
@@ -24,18 +24,26 @@ public class controllerEvento {
     activityPrincipal principal;
 
     ArrayList<Evento> allEvents = new ArrayList<>();
-    FragmentEvento fragEvento;
+    //FragmentEvento fragEvento;
+    splash splashAct;
 
+    /*
     public controllerEvento(activityPrincipal activity, FragmentEvento fragEvento){
         this.fragEvento = fragEvento;
         this.principal = activity;
         req = Volley.newRequestQueue(principal.getApplicationContext());
     }
+    */
+
+    public controllerEvento(splash splash){
+        this.splashAct = splash;
+        req = Volley.newRequestQueue(splashAct.getApplicationContext());
+    }
 
     public void getEvents(){
         JsonArrayRequest array = new JsonArrayRequest(Request.Method.GET,
-                //"http://www.json-generator.com/api/json/get/cqSDBodYEi?indent=2"
-                "http://192.168.1.38/Asistencia/Evento/getEventos.php",
+                "http://www.json-generator.com/api/json/get/cqSDBodYEi?indent=2",
+                //"http://192.168.1.38/Asistencia/Evento/getEventos.php",
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -80,8 +88,9 @@ public class controllerEvento {
     public void allEvents(ArrayList<Evento> events) {
 
         this.allEvents = events;
-        fragEvento.llenarEvento(allEvents);
-
+        //fragEvento.llenarEvento(allEvents);
+        splashAct.setEvents(events);
+        //return this.allEvents;
     }
 
 }
